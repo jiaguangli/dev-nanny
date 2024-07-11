@@ -1,3 +1,4 @@
+using Dev.Core;
 using Dev.Host;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,4 +12,5 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.InitializeApplication();
 
+app.Lifetime.ApplicationStopped.Register(ProcessHelper.KillAll);
 app.Run();

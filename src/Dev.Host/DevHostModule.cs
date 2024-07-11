@@ -1,4 +1,5 @@
-﻿using Dev.Core;
+﻿using Dev.App;
+using Dev.Core;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Modularity;
@@ -6,7 +7,7 @@ using Volo.Abp.Modularity;
 namespace Dev.Host;
 
 [DependsOn(
-    typeof(DevCoreModule),
+    typeof(DevAppModule),
     typeof(AbpAspNetCoreMvcModule)
     )]
 public class DevHostModule: AbpModule
@@ -30,10 +31,10 @@ public class DevHostModule: AbpModule
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+        app.UseRouting();
+        app.UseConfiguredEndpoints();
         app.UseUnitOfWork();
-
         app.UseAuthorization();
-
         base.OnApplicationInitialization(context);
     }
 }

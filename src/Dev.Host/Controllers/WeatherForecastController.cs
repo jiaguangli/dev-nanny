@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using Dev.App;
+using Dev.Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dev.Host.Controllers;
@@ -19,14 +22,18 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
+    public int Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+        ProcessStartInfo startInfo = new ProcessStartInfo
+        {
+            FileName = "D:\\JiaGuangli\\Soft\\phpstudy_pro\\COM\\phpstudy_pro.exe", // 这里替换为你想启动的程序
+            Arguments = "", // 如果有参数，可以在这里添加
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+
+        return ProcessHelper.Run(startInfo);
     }
 }

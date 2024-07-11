@@ -21,6 +21,4 @@ public class DevCoreModule: AbpModule
         context.Services.AddDbContext<DevNannyContext>();
         base.ConfigureServices(context);
     }
-
-
 }
